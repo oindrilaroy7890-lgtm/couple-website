@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oindrila ❤️ Zeeshan - Page 1</title>
+<style>
+body { margin:0; font-family:Arial, sans-serif; background: linear-gradient(135deg, #ffdde1, #ee9ca7); text-align:center; color:#fff;}
+header { font-size:2.5em; margin-top:30px;}
+canvas { border:2px solid #e60073; border-radius:10px; background:#ffe6f0; margin-top:20px;}
+.button { padding:10px 20px; background:#e60073; color:#fff; border:none; border-radius:10px; cursor:pointer; font-size:1em; margin-top:20px;}
+</style>
+</head>
+<body>
+<header>Oindrila ❤️ Zeeshan</header>
+<p>Mini Game - Catch the falling heart! 💖</p>
+<canvas id="gameCanvas" width="300" height="400"></canvas>
+<br>
+<button class="button" onclick="location.href='page2.html'">Next</button>
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+let heart={x:150,y:0,size:30,speed:2};
+let catcher={x:120,y:370,width:60,height:20};
+let caught=false;
+function drawHeart(x,y,size){ctx.fillStyle='#e60073';ctx.beginPath();ctx.moveTo(x,y);ctx.bezierCurveTo(x,y-size/2,x-size,y-size/2,x-size,y);ctx.bezierCurveTo(x-size,y+size/2,x,y+size,x,y+size*1.5);ctx.bezierCurveTo(x,y+size,x+size,y+size/2,x+size,y);ctx.bezierCurveTo(x+size,y-size/2,x,y-size/2,x,y);ctx.fill();}
+function drawCatcher(){ctx.fillStyle='#333';ctx.fillRect(catcher.x,catcher.y,catcher.width,catcher.height);}
+function updateGame(){ctx.clearRect(0,0,canvas.width,canvas.height);drawHeart(heart.x,heart.y,heart.size);drawCatcher();if(!caught) heart.y+=heart.speed;if(heart.y+heart.size>catcher.y && heart.x>catcher.x && heart.x<catcher.x+catcher.width){caught=true;ctx.fillStyle='green';ctx.font='20px Arial';ctx.fillText('You caught my heart! 💖',50,200);}requestAnimationFrame(updateGame);}
+document.addEventListener('mousemove',function(e){let rect=canvas.getBoundingClientRect();catcher.x=e.clientX-rect.left-catcher.width/2;});
+updateGame();
+</script>
+</body>
+</html>
